@@ -150,8 +150,11 @@ def remote_2(args):
 
 def remote_3(args):
 
+    max_iter = args["cache"]["max_iterations"]
     iteration =  args["cache"]["number_of_iterations"]
-    iteration +=1;
+
+    iteration += 1;
+
     C = args["cache"]["compAvgError"]["error"]
 
     average_Y = [0]*2
@@ -187,14 +190,14 @@ def remote_3(args):
 
 
 
-    if(iteration == 950):
+    if(iteration == 500):
         phase = 'remote_3';
     else:
         phase = 'remote_2';
 
     #raise Exception(local_labels.shape)
 
-    if (iteration > 601):
+    if (iteration == 500):
 
         with open(os.path.join(args["state"]["baseDirectory"], 'mnist2500_labels.txt')) as fh1:
             shared_Labels = np.loadtxt(fh1.readlines())
@@ -220,6 +223,7 @@ def remote_3(args):
 
 
     np.save(os.path.join(args['state']['transferDirectory'], 'shared_Y.npy'), Y)
+    #raise Exception(iteration)
 
     computation_output = {"output": {
                                 "compAvgError": compAvgError,

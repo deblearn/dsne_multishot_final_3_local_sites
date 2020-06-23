@@ -24,7 +24,8 @@ def local_noop(args):
         "cache": {
             "no_dims": input_list["no_dims"],
             "initial_dims": input_list["initial_dims"],
-            "perplexity": input_list["perplexity"]
+            "perplexity": input_list["perplexity"],
+            "max_iterations": input_list["max_iterations"]
         }
     }
 
@@ -154,6 +155,7 @@ def local_2(args):
 
     compAvgError1 = args["input"]["compAvgError"]
     iter = args["input"]["number_of_iterations"]
+    max_iter = args["cache"]["max_iterations"]
 
 
 
@@ -198,7 +200,7 @@ def local_2(args):
     np.save(os.path.join(args['state']['cacheDirectory'], 'local_gains.npy'), local_gains)
     #np.save(os.path.join(args['state']['cacheDirectory'], 'local_shared_Y.npy'), local_Shared_Y)
 
-    if(iter>600):
+    if(iter==499):
         with open(os.path.join(args["state"]["baseDirectory"], 'test_high_dimensional_site_1_mnist_label.txt')) as fh2:
             local_Y_labels = np.loadtxt(fh2.readlines())
 
@@ -243,10 +245,10 @@ def local_2(args):
 
 
     else:
-        with open(os.path.join(args["state"]["baseDirectory"], 'test_high_dimensional_site_1_mnist_label.txt')) as fh2:
-            local_Y_labels = np.loadtxt(fh2.readlines())
-
-        np.save(os.path.join(args['state']['transferDirectory'], 'local_Y_labels.npy'), local_Y_labels)
+        # with open(os.path.join(args["state"]["baseDirectory"], 'test_high_dimensional_site_1_mnist_label.txt')) as fh2:
+        #     local_Y_labels = np.loadtxt(fh2.readlines())
+        #
+        # np.save(os.path.join(args['state']['transferDirectory'], 'local_Y_labels.npy'), local_Y_labels)
 
         computation_output = {
             "output": {
